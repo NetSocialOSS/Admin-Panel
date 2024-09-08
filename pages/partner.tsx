@@ -14,7 +14,7 @@ export default function Partners() {
             </h2>
             <p className="mt-4 max-w-2xl text-xl text-neon-blue lg:mx-auto">
               <span className="bg-gradient-to-r from-orange-600 via-pink-600 to-purple-600 bg-clip-text ">
-                We value our partners at TopicList and appreciate their support.
+                We value our partners at NetSocial and appreciate their support.
               </span>
             </p>
             <div className="mb-14" />

@@ -19,7 +19,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "https://api.topiclist.xyz/:path*",
+        source: "https://api.netsocial.app/:path*",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
           { key: "Access-Control-Allow-Origin", value: "*" },
@@ -52,7 +52,7 @@ module.exports = withBundleAnalyzer(
       remotePatterns: [
         {
           protocol: "https",
-          hostname: "cdn.topiclist.xyz",
+          hostname: "cdn.netsocial.app",
         },
         {
           protocol: "https",

@@ -54,7 +54,7 @@ export default function Bar() {
             },
           },
           "> Partners": {
-            description: "List Of Partners For TopicList & TopicServers",
+            description: "List Of Partners",
             run: () => {
               router.push("/partner");
               setValue("");

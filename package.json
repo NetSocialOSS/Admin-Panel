@@ -1,6 +1,6 @@
 {
-  "name": "topic-admin",
-  "version": "2.0.0",
+  "name": "neso-admin",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -22,10 +22,8 @@
     "next-pwa": "^5.6.0",
     "nextjs-progressbar": "^0.0.14",
     "node-fetch": "3.3.1",
-    "prettier": "^3.0.3",
     "qs": "^6.11.1",
     "react": "18.2.0",
-    "react-chartjs-2": "5.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.4.0",
