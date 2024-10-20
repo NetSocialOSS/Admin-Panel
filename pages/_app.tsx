@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import Navbar from "../components/Static/Navbar";
 import Head from "next/head";
+import LoginPromptModal from "../components/layout/LoginPromptModal";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -26,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           const data = await response.json();
           setIsLoggedIn(true);
           setUsername(data.username);
-          setProfilePicture(`${baseURL}/profile/${data.username}/image`);
+          setProfilePicture(data.profilePicture);
         } else {
           setIsLoggedIn(false);
         }
@@ -59,6 +60,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               animate={{ y: 0, opacity: 1 }}
               initial={{ y: 50, opacity: 0 }}
             >
+              {!isLoggedIn && <LoginPromptModal />} {/* Render the modal if not logged in */}
               <Component
                 {...pageProps}
                 isLoggedIn={isLoggedIn}

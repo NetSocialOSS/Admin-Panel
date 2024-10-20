@@ -79,7 +79,7 @@ export default function Bar() {
           "> ban": {
             description: "Ban user",
             run: () => {
-              router.push("/user/manage/ban");
+              router.push("/manage/user");
               setValue("");
               setSearch(false);
               update({ value: " ", index: 6 });
@@ -88,7 +88,16 @@ export default function Bar() {
           "> warm": {
             description: "Warn a user",
             run: () => {
-              router.push("/user/manage/warn");
+              router.push("/manage/user");
+              setValue("");
+              setSearch(false);
+              update({ value: " ", index: 6 });
+            },
+          },
+          "> badge": {
+            description: "manage a users badge",
+            run: () => {
+              router.push("/user/manage/badge");
               setValue("");
               setSearch(false);
               update({ value: " ", index: 6 });
@@ -98,6 +107,42 @@ export default function Bar() {
         run: () => {
           setValue("user >");
           update({ value: "user >", index: 6 });
+        },
+      },
+      coterie: {
+        description: "Run actions on users",
+        commands: {
+          "> ban": {
+            description: "Ban user",
+            run: () => {
+              router.push("/manage/user");
+              setValue("");
+              setSearch(false);
+              update({ value: " ", index: 6 });
+            },
+          },
+          "> warm": {
+            description: "Warn a user",
+            run: () => {
+              router.push("/manage/user");
+              setValue("");
+              setSearch(false);
+              update({ value: " ", index: 6 });
+            },
+          },
+          "> badge": {
+            description: "manage a users badge",
+            run: () => {
+              router.push("/user/manage/badge");
+              setValue("");
+              setSearch(false);
+              update({ value: " ", index: 6 });
+            },
+          },
+        },
+        run: () => {
+          setValue("coterie >");
+          update({ value: "coterie >", index: 6 });
         },
       },
     },
