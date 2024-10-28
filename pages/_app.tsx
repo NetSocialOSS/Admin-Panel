@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [profilepicture, setProfilePicture] = useState("");
-
+  const [userid, setUserID] = useState<string>("");
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
@@ -27,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           const data = await response.json();
           setIsLoggedIn(true);
           setUsername(data.username);
+          setUserID(data._id);
           setProfilePicture(data.profilePicture);
         } else {
           setIsLoggedIn(false);
@@ -60,11 +61,12 @@ function MyApp({ Component, pageProps }: AppProps) {
               animate={{ y: 0, opacity: 1 }}
               initial={{ y: 50, opacity: 0 }}
             >
-              {!isLoggedIn && <LoginPromptModal />} {/* Render the modal if not logged in */}
+              {!isLoggedIn && <LoginPromptModal />}
               <Component
                 {...pageProps}
                 isLoggedIn={isLoggedIn}
                 username={username}
+                userId={userid}
               />
             </motion.div>
           </AnimatePresence>

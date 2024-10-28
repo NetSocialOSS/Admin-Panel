@@ -104,14 +104,14 @@ const Navbar: React.FC<NavbarProps> = ({
           {isLoggedIn && (
             <>
               <SidebarItem
-                onClick={() => handleSidebarItemClick("/servers")}
-                text={"Servers"}
-                icon={<FaServer />}
-              />
-              <SidebarItem
                 onClick={() => handleSidebarItemClick("/manage/user")}
                 text={"User Management"}
-                icon={<FaUser />}
+                icon={<FaUserCog />}
+              />
+              <SidebarItem
+                onClick={() => handleSidebarItemClick("/manage/post")}
+                text={"Post Management"}
+                icon={<FaUserCog />}
               />
               <SidebarItem
                 onClick={() => handleSidebarItemClick("/manage/badge")}

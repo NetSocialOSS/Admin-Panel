@@ -1,27 +1,26 @@
 import { useState, useEffect } from "react";
-import { FaCode, FaCrown, FaHandshake, FaBan } from "react-icons/fa";
+import { FaCode, FaCrown, FaHandshake, FaUserShield } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { toast, Toaster } from "react-hot-toast";
 
-export default function Component() {
+interface Props {
+  userId?: string;
+}
+
+const BadgeManagement: React.FC<Props> = ({ userId }) => {
   const [username, setUsername] = useState("");
   const [selectedAction, setSelectedAction] = useState("add");
   const [availableBadges, setAvailableBadges] = useState([
     { name: "Developer", icon: FaCode, value: "dev" },
     { name: "Owner", icon: FaCrown, value: "owner" },
     { name: "Partner", icon: FaHandshake, value: "partner" },
+    { name: "Moderator", icon: FaUserShield, value: "moderator" },
     { name: "Verified", icon: MdVerified, value: "verified" },
   ]);
   const [appliedBadges, setAppliedBadges] = useState([]);
   const [user_id, setUserId] = useState(null); // Initialize state for user_id
 
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
-
-  useEffect(() => {
-    // Access localStorage only on the client side
-    const storedUserId = localStorage.getItem("user_id");
-    setUserId(storedUserId);
-  }, []); // Empty dependency array means this runs once on mount
 
   const handleBadgeApply = (badge) => {
     if (!appliedBadges.some((b) => b.value === badge.value)) {
@@ -42,7 +41,7 @@ export default function Component() {
     }
     for (let badge of appliedBadges) {
       const response = await fetch(
-        `${baseURL}/admin/manage/badge?username=${username}&action=${selectedAction}&badge=${badge.value}&modid=${user_id}`,
+        `${baseURL}/admin/manage/badge?username=${username}&action=${selectedAction}&badge=${badge.value}&modid=${userId}`,
         {
           method: "POST",
         }
@@ -154,3 +153,5 @@ export default function Component() {
     </div>
   );
 }
+
+export default BadgeManagement;
