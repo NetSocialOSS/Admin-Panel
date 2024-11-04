@@ -38,6 +38,8 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
       toast.error("User ID is not available.");
       return;
     }
+  
+    let success = true;
     for (let badge of appliedBadges) {
       const response = await fetch(
         `${baseURL}/admin/manage/badge?username=${username}&action=${selectedAction}&badge=${badge.value}&modid=${userId}`,
@@ -49,10 +51,15 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
       if (response.ok) {
         toast.success(`${badge.name} badge ${selectedAction}ed successfully.`);
       } else {
-        toast.error(` Failed to ${selectedAction} ${badge.name} badge.`);
+        toast.error(`Failed to ${selectedAction} ${badge.name} badge.`);
+        success = false;
       }
     }
-  };
+  
+    if (success) {
+      setAppliedBadges([]);
+    }
+  }; 
 
   return (
     <div className="p-5">
