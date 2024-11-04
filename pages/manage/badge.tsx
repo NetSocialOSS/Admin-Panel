@@ -17,7 +17,7 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
     { name: "Moderator", icon: FaUserShield, value: "moderator" },
     { name: "Verified", icon: MdVerified, value: "verified" },
   ]);
-  const [appliedBadges, setAppliedBadges] = useState([]);// Initialize state for user_id
+  const [appliedBadges, setAppliedBadges] = useState([]); // Initialize state for user_id
 
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -38,16 +38,16 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
       toast.error("User ID is not available.");
       return;
     }
-  
+
     let success = true;
     for (let badge of appliedBadges) {
       const response = await fetch(
         `${baseURL}/admin/manage/badge?username=${username}&action=${selectedAction}&badge=${badge.value}&modid=${userId}`,
         {
           method: "POST",
-        }
+        },
       );
-  
+
       if (response.ok) {
         toast.success(`${badge.name} badge ${selectedAction}ed successfully.`);
       } else {
@@ -55,11 +55,11 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
         success = false;
       }
     }
-  
+
     if (success) {
       setAppliedBadges([]);
     }
-  }; 
+  };
 
   return (
     <div className="p-5">
@@ -70,24 +70,24 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
             User Name
           </label>
           <div className="relative border border-blue-800 rounded">
-  {username && (
-    <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-      <img
-        src={`${baseURL}/profile/${username}/image`}
-        alt="User"
-        className="w-10 h-10 rounded-full"
-      />
-    </div>
-  )}
-  <input
-    type="text"
-    id="username"
-    placeholder="Enter the username..."
-    className={`w-full px-4 py-2 border text-white border-gray-300 bg-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${username ? 'pl-14' : 'pl-4'}`}
-    value={username}
-    onChange={(e) => setUsername(e.target.value)}
-  />
-</div>
+            {username && (
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <img
+                  src={`${baseURL}/profile/${username}/image`}
+                  alt="User"
+                  className="w-10 h-10 rounded-full"
+                />
+              </div>
+            )}
+            <input
+              type="text"
+              id="username"
+              placeholder="Enter the username..."
+              className={`w-full px-4 py-2 border text-white border-gray-300 bg-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${username ? "pl-14" : "pl-4"}`}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
         </div>
         <div className="mb-6">
           <label htmlFor="action" className="block font-medium mb-2">
@@ -158,6 +158,6 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
       <Toaster />
     </div>
   );
-}
+};
 
 export default BadgeManagement;

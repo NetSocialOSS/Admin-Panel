@@ -16,16 +16,23 @@ const UserManagement: React.FC<Props> = ({ userId }) => {
       return;
     }
 
-    const response = await fetch(`${baseURL}/admin/manage/user?action=${selectedAction}&username=${userIdToManage}&modid=${userId}`, {
-      method: "POST",
-    });
+    const response = await fetch(
+      `${baseURL}/admin/manage/user?action=${selectedAction}&username=${userIdToManage}&modid=${userId}`,
+      {
+        method: "POST",
+      },
+    );
 
     if (response.ok) {
-      toast.success(`User with ID ${userIdToManage} has been ${selectedAction}ed successfully.`);
+      toast.success(
+        `User with ID ${userIdToManage} has been ${selectedAction}ed successfully.`,
+      );
       setUserIdToManage("");
       setSelectedAction("ban");
     } else {
-      toast.error(`Failed to ${selectedAction} user with ID ${userIdToManage}.`);
+      toast.error(
+        `Failed to ${selectedAction} user with ID ${userIdToManage}.`,
+      );
     }
   };
 
@@ -69,7 +76,8 @@ const UserManagement: React.FC<Props> = ({ userId }) => {
             className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
             onClick={handleManageUser}
           >
-            {selectedAction.charAt(0).toUpperCase() + selectedAction.slice(1)} User
+            {selectedAction.charAt(0).toUpperCase() + selectedAction.slice(1)}{" "}
+            User
           </button>
         </div>
       </div>

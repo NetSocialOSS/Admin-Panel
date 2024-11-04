@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { FaUser } from 'react-icons/fa';
-import { MdLockOutline } from 'react-icons/md';
-import Image from 'next/image';
+import React, { useState } from "react";
+import { FaUser } from "react-icons/fa";
+import { MdLockOutline } from "react-icons/md";
+import Image from "next/image";
 
 const LoginPage = () => {
-  const [usernameOrEmail, setusernameOrEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [usernameOrEmail, setusernameOrEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -16,28 +16,28 @@ const LoginPage = () => {
     try {
       const url = `${baseURL}/auth/login?usernameOrEmail=${encodeURIComponent(usernameOrEmail)}&password=${encodeURIComponent(password)}`;
       const response = await fetch(url, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log('Logged in successfully');
-        localStorage.setItem('user_id', data.user_id);
-        
-        setusernameOrEmail('');
-        setPassword('');
+        console.log("Logged in successfully");
+        localStorage.setItem("user_id", data.user_id);
+
+        setusernameOrEmail("");
+        setPassword("");
         window.location.reload();
       } else {
-        setError(data.error || 'Login failed');
+        setError(data.error || "Login failed");
       }
     } catch (error) {
-      console.error('Error logging in:', error);
-      setError('An error occurred during login');
+      console.error("Error logging in:", error);
+      setError("An error occurred during login");
     }
   };
 

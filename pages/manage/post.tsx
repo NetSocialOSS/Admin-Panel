@@ -14,9 +14,12 @@ const PostManagement: React.FC<Props> = ({ userId }) => {
       toast.error("Post ID is required.");
       return;
     }
-    const response = await fetch(`${baseURL}/admin/manage/post?postId=${postId}&modid=${userId}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `${baseURL}/admin/manage/post?postId=${postId}&modid=${userId}`,
+      {
+        method: "DELETE",
+      },
+    );
 
     if (response.ok) {
       toast.success(`Post with ID ${postId} deleted successfully.`);
@@ -35,14 +38,14 @@ const PostManagement: React.FC<Props> = ({ userId }) => {
             Post ID
           </label>
           <div className="border border-blue-800 rounded rounded-lg">
-          <input
-            type="text"
-            id="postId"
-            placeholder="Enter the Post ID to delete..."
-            className={`w-full px-4 py-2 border text-white border-blue-800 bg-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            value={postId}
-            onChange={(e) => setPostId(e.target.value)}
-          />
+            <input
+              type="text"
+              id="postId"
+              placeholder="Enter the Post ID to delete..."
+              className={`w-full px-4 py-2 border text-white border-blue-800 bg-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              value={postId}
+              onChange={(e) => setPostId(e.target.value)}
+            />
           </div>
         </div>
         <div className="mt-6">

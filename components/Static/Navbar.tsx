@@ -143,7 +143,9 @@ const Navbar: React.FC<NavbarProps> = ({
               <div style={{ height: "90px" }} />
               <SidebarItem
                 onClick={() =>
-                  handleSidebarItemClick(`https://netsocial.app/user/${username}`)
+                  handleSidebarItemClick(
+                    `https://netsocial.app/user/${username}`,
+                  )
                 }
                 text={"Profile"}
                 icon={

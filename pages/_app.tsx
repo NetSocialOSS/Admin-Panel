@@ -51,7 +51,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           href="https://cdn.netsocial.app/images/png/netsocial-transparent.png"
         />
       </Head>
-      <Navbar isLoggedIn={isLoggedIn} profilepicture={profilepicture} username={username}>
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        profilepicture={profilepicture}
+        username={username}
+      >
         <div className="h-full w-full overflow-hidden">
           <AnimatePresence>
             <motion.div

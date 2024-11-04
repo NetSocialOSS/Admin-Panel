@@ -36,13 +36,13 @@ export default function Bar() {
           //  },
           //},
           //"> servers": {
-            //description: "Navigate to the servers page",
-            //run: () => {
-              //router.push("/servers");
-              //("");
-              //(false);
-              //update({ value: " ", index: 6 });
-            //},
+          //description: "Navigate to the servers page",
+          //run: () => {
+          //router.push("/servers");
+          //("");
+          //(false);
+          //update({ value: " ", index: 6 });
+          //},
           //},
           "> User Managament": {
             description: "Manage the users, take actions.",

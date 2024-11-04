@@ -58,16 +58,8 @@ const App: React.FC = () => {
             label="Partners"
             count={partnersCount}
           />
-          <StatCard
-            icon={<FaCheckCircle />}
-            label="Posts"
-            count={postsCount}
-          />
-          <StatCard
-            icon={<FaUsers />}
-            label="Users"
-            count={usersCount}
-          />
+          <StatCard icon={<FaCheckCircle />} label="Posts" count={postsCount} />
+          <StatCard icon={<FaUsers />} label="Users" count={usersCount} />
           <StatCard
             icon={<AiOutlineUsergroupAdd />}
             label="Coteries"
