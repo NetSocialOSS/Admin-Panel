@@ -17,8 +17,7 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
     { name: "Moderator", icon: FaUserShield, value: "moderator" },
     { name: "Verified", icon: MdVerified, value: "verified" },
   ]);
-  const [appliedBadges, setAppliedBadges] = useState([]);
-  const [user_id, setUserId] = useState(null); // Initialize state for user_id
+  const [appliedBadges, setAppliedBadges] = useState([]);// Initialize state for user_id
 
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -35,7 +34,7 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
   };
 
   const handleSubmit = async () => {
-    if (!user_id) {
+    if (!userId) {
       toast.error("User ID is not available.");
       return;
     }
