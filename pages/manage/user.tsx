@@ -42,7 +42,7 @@ const UserManagement: React.FC<Props> = ({ userId }) => {
       <div className="p-6 rounded-lg shadow-md">
         <div className="mb-6">
           <label htmlFor="userIdToManage" className="block font-medium mb-2">
-            User ID
+            Username
           </label>
           <div className="border border-blue-800 rounded-lg">
             <input

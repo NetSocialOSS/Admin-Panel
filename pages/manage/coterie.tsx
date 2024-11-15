@@ -15,7 +15,7 @@ const CoterieManagement: React.FC<Props> = ({ userId }) => {
       return;
     }
     const response = await fetch(
-      `${baseURL}/admin/manage/coterie?ma,e=${coterieId}&modid=${userId}`,
+      `${baseURL}/admin/manage/coterie?name=${coterieId}&modid=${userId}`,
       {
         method: "DELETE",
       },
@@ -35,7 +35,7 @@ const CoterieManagement: React.FC<Props> = ({ userId }) => {
       <div className="p-6 rounded-lg shadow-md">
         <div className="mb-6">
           <label htmlFor="coterieId" className="block font-medium mb-2">
-            Coterie ID
+            Coterie Name
           </label>
           <div className="border border-blue-800 rounded-lg">
             <input

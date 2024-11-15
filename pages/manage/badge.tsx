@@ -9,6 +9,7 @@ interface Props {
 
 const BadgeManagement: React.FC<Props> = ({ userId }) => {
   const [username, setUsername] = useState("");
+  const [profilePicture, setProfilePicture] = useState<string | null>(null); // State for profile picture
   const [selectedAction, setSelectedAction] = useState("add");
   const [availableBadges, setAvailableBadges] = useState([
     { name: "Developer", icon: FaCode, value: "dev" },
@@ -20,6 +21,27 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
   const [appliedBadges, setAppliedBadges] = useState([]); // Initialize state for user_id
 
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
+  // Function to fetch profile information and set profile picture
+  const fetchProfilePicture = async (username: string) => {
+    if (!username) return;
+
+    try {
+      const response = await fetch(`${baseURL}/user/${username}?action=info`);
+      const data = await response.json();
+      if (response.ok && data.profilePicture) {
+        setProfilePicture(data.profilePicture); // Set the profile picture URL
+      } else {
+        toast.error("Failed to fetch profile picture.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while fetching the profile picture.");
+    }
+  };
+
+  useEffect(() => {
+    fetchProfilePicture(username); // Fetch the profile picture whenever username changes
+  }, [username]);
 
   const handleBadgeApply = (badge) => {
     if (!appliedBadges.some((b) => b.value === badge.value)) {
@@ -45,7 +67,7 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
         `${baseURL}/admin/manage/badge?username=${username}&action=${selectedAction}&badge=${badge.value}&modid=${userId}`,
         {
           method: "POST",
-        },
+        }
       );
 
       if (response.ok) {
@@ -70,10 +92,10 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
             User Name
           </label>
           <div className="relative border border-blue-800 rounded">
-            {username && (
+            {profilePicture && username && (
               <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <img
-                  src={`${baseURL}/profile/${username}/image`}
+                  src={profilePicture}
                   alt="User"
                   className="w-10 h-10 rounded-full"
                 />
