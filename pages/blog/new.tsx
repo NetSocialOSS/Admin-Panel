@@ -1,68 +1,73 @@
-import React, { useState } from 'react'
-import { FaPlus, FaMinus, FaPaperPlane } from 'react-icons/fa'
+import React, { useState } from "react";
+import { FaPlus, FaMinus, FaPaperPlane } from "react-icons/fa";
 import { toast, Toaster } from "react-hot-toast";
 
 interface Props {
-  userId?: string
+  userId?: string;
 }
 
 export default function Component({ userId }: Props) {
-  const [title, setTitle] = useState('')
-  const [overview, setOverview] = useState('')
-  const [content, setContent] = useState([{ body: '' }])
-  const baseURL = process.env.NEXT_PUBLIC_API_URL
+  const [title, setTitle] = useState("");
+  const [overview, setOverview] = useState("");
+  const [content, setContent] = useState([{ body: "" }]);
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   const handleContentChange = (index: number, value: string) => {
-    const newContent = [...content]
-    newContent[index].body = value
-    setContent(newContent)
-  }
+    const newContent = [...content];
+    newContent[index].body = value;
+    setContent(newContent);
+  };
 
   const addContentSection = () => {
-    setContent([...content, { body: '' }])
-  }
+    setContent([...content, { body: "" }]);
+  };
 
   const removeContentSection = (index: number) => {
     if (content.length > 1) {
-      const newContent = content.filter((_, i) => i !== index)
-      setContent(newContent)
+      const newContent = content.filter((_, i) => i !== index);
+      setContent(newContent);
     }
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const contentData = JSON.stringify(content)
-    const url = `${baseURL}/blog/new?userId=${userId}&title=${encodeURIComponent(title)}&overview=${encodeURIComponent(overview)}&content=${contentData}`
+    e.preventDefault();
+    const contentData = JSON.stringify(content);
+    const url = `${baseURL}/blog/new?userId=${userId}&title=${encodeURIComponent(title)}&overview=${encodeURIComponent(overview)}&content=${contentData}`;
 
     try {
       const response = await fetch(url, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-        }
-      })
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.ok) {
-        toast.success('Blog submitted successfully!')
-        setTitle('')
-        setOverview('')
-        setContent([{ body: '' }])
+        toast.success("Blog submitted successfully!");
+        setTitle("");
+        setOverview("");
+        setContent([{ body: "" }]);
       } else {
-        throw new Error('Failed to submit blog')
+        throw new Error("Failed to submit blog");
       }
     } catch (error) {
-      toast.error('There was an error submitting the blog. Please try again.')
+      toast.error("There was an error submitting the blog. Please try again.");
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center p-4">
-      <form onSubmit={handleSubmit} className="w-full max-w-2xl rounded-lg border border-blue-800 text-white shadow-xl overflow-hidden">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-2xl rounded-lg border border-blue-800 text-white shadow-xl overflow-hidden"
+      >
         <div className="p-8">
           <h2 className="text-3xl font-bold mb-6 text-center">Add new blog</h2>
 
           <div className="mb-6">
-            <label htmlFor="title" className="block text-sm font-medium mb-2">Title</label>
+            <label htmlFor="title" className="block text-sm font-medium mb-2">
+              Title
+            </label>
             <input
               type="text"
               id="title"
@@ -74,7 +79,12 @@ export default function Component({ userId }: Props) {
           </div>
 
           <div className="mb-6">
-            <label htmlFor="overview" className="block text-sm font-medium mb-2">Overview</label>
+            <label
+              htmlFor="overview"
+              className="block text-sm font-medium mb-2"
+            >
+              Overview
+            </label>
             <textarea
               id="overview"
               value={overview}
@@ -86,7 +96,9 @@ export default function Component({ userId }: Props) {
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium mb-2">Content Sections</label>
+            <label className="block text-sm font-medium mb-2">
+              Content Sections
+            </label>
             {content.map((section, index) => (
               <div key={index} className="flex mb-4">
                 <textarea
@@ -124,5 +136,5 @@ export default function Component({ userId }: Props) {
       </form>
       <Toaster />
     </div>
-  )
+  );
 }
