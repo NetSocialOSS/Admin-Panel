@@ -6,7 +6,7 @@ import {
   FaUserCog,
   FaServer,
   FaHandshake,
-  FaUser,
+  FaBlog,
   FaCogs,
   FaSignOutAlt,
   FaUserCircle,
@@ -107,6 +107,11 @@ const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => handleSidebarItemClick("/manage/user")}
                 text={"User Management"}
                 icon={<FaUserCog />}
+              />
+              <SidebarItem
+                onClick={() => handleSidebarItemClick("/blog/new")}
+                text={"New Blog"}
+                icon={<FaBlog />}
               />
               <SidebarItem
                 onClick={() => handleSidebarItemClick("/manage/post")}
