@@ -67,7 +67,7 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
         `${baseURL}/admin/manage/badge?username=${username}&action=${selectedAction}&badge=${badge.value}&modid=${userId}`,
         {
           method: "POST",
-        }
+        },
       );
 
       if (response.ok) {
