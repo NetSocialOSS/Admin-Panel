@@ -36,7 +36,7 @@ const App: React.FC = () => {
         const data = await Promise.all(responses.map((res) => res.json()));
 
         setPostsCount(data[0].total_posts);
-        setPartnersCount(data[1].total_partner);
+        setPartnersCount(data[1].total_partners);
         setUsersCount(data[2].total_registered_user);
         setCoteriesCount(data[3].total_coteries);
       } catch (error) {
