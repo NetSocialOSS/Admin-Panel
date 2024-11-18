@@ -32,13 +32,14 @@ export default function Component({ userId }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const contentData = JSON.stringify(content);
-    const url = `${baseURL}/blog/new?userId=${userId}&title=${encodeURIComponent(title)}&overview=${encodeURIComponent(overview)}&content=${contentData}`;
+    const url = `${baseURL}/blog/new?title=${encodeURIComponent(title)}&overview=${encodeURIComponent(overview)}&content=${contentData}`;
 
     try {
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-userId": userId,
         },
       });
 

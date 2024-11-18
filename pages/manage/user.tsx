@@ -17,9 +17,15 @@ const UserManagement: React.FC<Props> = ({ userId }) => {
     }
 
     const response = await fetch(
-      `${baseURL}/admin/manage/user?action=${selectedAction}&username=${userIdToManage}&modid=${userId}`,
+      `${baseURL}/admin/manage/user`,
       {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+            "X-username": userIdToManage,
+            "X-action": selectedAction,
+            "X-modid": userId,
+        }
       },
     );
 

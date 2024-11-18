@@ -15,9 +15,14 @@ const PostManagement: React.FC<Props> = ({ userId }) => {
       return;
     }
     const response = await fetch(
-      `${baseURL}/admin/manage/post?postId=${postId}&modid=${userId}`,
+      `${baseURL}/admin/manage/post`,
       {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-modid": userId,
+          "X-postId": postId,
+        }
       },
     );
 

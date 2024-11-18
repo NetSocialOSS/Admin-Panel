@@ -15,9 +15,14 @@ const CoterieManagement: React.FC<Props> = ({ userId }) => {
       return;
     }
     const response = await fetch(
-      `${baseURL}/admin/manage/coterie?name=${coterieId}&modid=${userId}`,
+      `${baseURL}/admin/manage/coterie`,
       {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+"X-modid": userId,
+"X-name": coterieId,
+        }
       },
     );
 
