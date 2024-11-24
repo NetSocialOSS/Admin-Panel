@@ -17,45 +17,45 @@ function MyApp({ Component, pageProps }: AppProps) {
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const AES_KEY = process.env.NEXT_PUBLIC_AES_KEY;
 
- //encrypter encrypts
- const encrypter = async (password: string): Promise<string> => {
-  try {
-    if (!AES_KEY) {
-      console.error("AES_KEY is not defined in environment variables.");
-      throw new Error("Encryption key missing.");
+  //encrypter encrypts
+  const encrypter = async (password: string): Promise<string> => {
+    try {
+      if (!AES_KEY) {
+        console.error("AES_KEY is not defined in environment variables.");
+        throw new Error("Encryption key missing.");
+      }
+
+      const encoder = new TextEncoder();
+      const keyMaterial = await crypto.subtle.importKey(
+        "raw",
+        encoder.encode(AES_KEY), // Use raw key (already a 256-bit key)
+        { name: "AES-GCM" },
+        false,
+        ["encrypt"],
+      );
+
+      const nonce = crypto.getRandomValues(new Uint8Array(12));
+
+      // Encrypt the password using AES-GCM
+      const encrypted = await crypto.subtle.encrypt(
+        { name: "AES-GCM", iv: nonce },
+        keyMaterial,
+        encoder.encode(password),
+      );
+
+      // Convert both nonce and encrypted data to Base64
+      const encryptedBase64 = btoa(
+        String.fromCharCode(...Array.from(new Uint8Array(encrypted))),
+      );
+      const nonceBase64 = btoa(String.fromCharCode(...Array.from(nonce)));
+
+      // Return both the nonce and the encrypted password, separated by a colon (ESSENTIAL FOR HARBINGER)
+      return `${nonceBase64}:${encryptedBase64}`;
+    } catch (error) {
+      console.error("Password encryption failed:", error);
+      throw new Error("Encryption failed.");
     }
-
-    const encoder = new TextEncoder();
-    const keyMaterial = await crypto.subtle.importKey(
-      "raw",
-      encoder.encode(AES_KEY), // Use raw key (already a 256-bit key)
-      { name: "AES-GCM" },
-      false,
-      ["encrypt"],
-    );
-
-    const nonce = crypto.getRandomValues(new Uint8Array(12));
-
-    // Encrypt the password using AES-GCM
-    const encrypted = await crypto.subtle.encrypt(
-      { name: "AES-GCM", iv: nonce },
-      keyMaterial,
-      encoder.encode(password),
-    );
-
-    // Convert both nonce and encrypted data to Base64
-    const encryptedBase64 = btoa(
-      String.fromCharCode(...Array.from(new Uint8Array(encrypted))),
-    );
-    const nonceBase64 = btoa(String.fromCharCode(...Array.from(nonce)));
-
-    // Return both the nonce and the encrypted password, separated by a colon (ESSENTIAL FOR HARBINGER)
-    return `${nonceBase64}:${encryptedBase64}`;
-  } catch (error) {
-    console.error("Password encryption failed:", error);
-    throw new Error("Encryption failed.");
-  }
-};
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {

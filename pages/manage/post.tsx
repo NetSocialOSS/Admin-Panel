@@ -14,17 +14,14 @@ const PostManagement: React.FC<Props> = ({ userId }) => {
       toast.error("Post ID is required.");
       return;
     }
-    const response = await fetch(
-      `${baseURL}/admin/manage/post`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "X-modid": userId,
-          "X-postId": postId,
-        }
+    const response = await fetch(`${baseURL}/admin/manage/post`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "X-modid": userId,
+        "X-postId": postId,
       },
-    );
+    });
 
     if (response.ok) {
       toast.success(`Post with ID ${postId} deleted successfully.`);

@@ -16,18 +16,15 @@ const UserManagement: React.FC<Props> = ({ userId }) => {
       return;
     }
 
-    const response = await fetch(
-      `${baseURL}/admin/manage/user`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-            "X-username": userIdToManage,
-            "X-action": selectedAction,
-            "X-modid": userId,
-        }
+    const response = await fetch(`${baseURL}/admin/manage/user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-username": userIdToManage,
+        "X-action": selectedAction,
+        "X-modid": userId,
       },
-    );
+    });
 
     if (response.ok) {
       toast.success(

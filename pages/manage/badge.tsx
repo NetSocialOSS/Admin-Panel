@@ -63,19 +63,16 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
 
     let success = true;
     for (let badge of appliedBadges) {
-      const response = await fetch(
-        `${baseURL}/admin/manage/badge`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-username": username,
-            "X-action": selectedAction,
-            "X-modid": userId,
-            "X-badge": badge.value,
-          }
+      const response = await fetch(`${baseURL}/admin/manage/badge`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-username": username,
+          "X-action": selectedAction,
+          "X-modid": userId,
+          "X-badge": badge.value,
         },
-      );
+      });
 
       if (response.ok) {
         toast.success(`${badge.name} badge ${selectedAction}ed successfully.`);

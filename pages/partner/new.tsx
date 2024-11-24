@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import { FaHandshake } from "react-icons/fa";
@@ -53,7 +53,9 @@ export default function AddPartner({ userId }: Props) {
         className="w-full max-w-2xl rounded-lg border border-blue-800 text-white shadow-xl overflow-hidden"
       >
         <div className="p-8">
-          <h2 className="text-3xl font-bold mb-6 text-center">Add New Partner</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center">
+            Add New Partner
+          </h2>
 
           <div className="mb-6">
             <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -84,7 +86,10 @@ export default function AddPartner({ userId }: Props) {
           </div>
 
           <div className="mb-6">
-            <label htmlFor="description" className="block text-sm font-medium mb-2">
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium mb-2"
+            >
               Description
             </label>
             <textarea

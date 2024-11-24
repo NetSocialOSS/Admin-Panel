@@ -14,17 +14,14 @@ const CoterieManagement: React.FC<Props> = ({ userId }) => {
       toast.error("Coterie ID is required.");
       return;
     }
-    const response = await fetch(
-      `${baseURL}/admin/manage/coterie`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-"X-modid": userId,
-"X-name": coterieId,
-        }
+    const response = await fetch(`${baseURL}/admin/manage/coterie`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "X-modid": userId,
+        "X-name": coterieId,
       },
-    );
+    });
 
     if (response.ok) {
       toast.success(`Coterie with ID ${coterieId} deleted successfully.`);
