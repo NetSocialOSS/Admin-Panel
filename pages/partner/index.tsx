@@ -1,4 +1,4 @@
-import Partner from "../components/layout/partners/Main";
+import Partner from "../../components/layout/partners/Main";
 
 export default function Partners() {
   return (

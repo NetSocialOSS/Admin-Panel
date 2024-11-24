@@ -91,10 +91,10 @@ const Navbar: React.FC<NavbarProps> = ({
 
         <div
           style={{
-            height: "calc(100vh - 180px)",
+            height: "calc(112vh - 210px)",
             background: "rgb(255, 255, 255, 0.0)",
           }}
-          className="w-full flex flex-col rounded-lg border-2 border-blue-800 p-4 pt-[10px]"
+          className="w-full rounded-lg border-2 border-blue-800"
         >
           <SidebarItem
             onClick={() => handleSidebarItemClick("/")}
@@ -114,6 +114,16 @@ const Navbar: React.FC<NavbarProps> = ({
                 icon={<FaBlog />}
               />
               <SidebarItem
+                onClick={() => handleSidebarItemClick("/partner/new")}
+                text={"New Partner"}
+                icon={<FaHandshake />}
+              />
+              <SidebarItem
+                onClick={() => handleSidebarItemClick("/partner")}
+                text={"Partner"}
+                icon={<FaHandshake />}
+              />
+              <SidebarItem
                 onClick={() => handleSidebarItemClick("/manage/post")}
                 text={"Post Management"}
                 icon={<FaUserCog />}
@@ -129,11 +139,6 @@ const Navbar: React.FC<NavbarProps> = ({
                 icon={<FaUserCog />}
               />
               <SidebarItem
-                onClick={() => handleSidebarItemClick("/partner")}
-                text={"Partners"}
-                icon={<FaHandshake />}
-              />
-              <SidebarItem
                 onClick={() =>
                   handleSidebarItemClick("https://status.netsocial.app")
                 }
@@ -145,7 +150,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 text={"Analytics"}
                 icon={<SiSimpleanalytics />}
               />
-              <div style={{ height: "90px" }} />
+              <div style={{ height: "10px" }} />
               <SidebarItem
                 onClick={() =>
                   handleSidebarItemClick(
