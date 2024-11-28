@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import { SiSimpleanalytics } from "react-icons/si";
 import SidebarItem from "../SidebarItem";
+import DropdownMenu from "./DropdownMenu";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 
@@ -59,6 +60,55 @@ const Navbar: React.FC<NavbarProps> = ({
     setSidebarOpen(false);
   };
 
+  const managementItems = [
+    {
+      text: "User Management",
+      icon: <FaUserCog size={14} />,
+      onClick: () => handleSidebarItemClick("/manage/user"),
+    },
+    {
+      text: "Post Management",
+      icon: <FaUserCog size={14} />,
+      onClick: () => handleSidebarItemClick("/manage/post"),
+    },
+    {
+      text: "Badge Management",
+      icon: <FaUserCog size={14} />,
+      onClick: () => handleSidebarItemClick("/manage/badge"),
+    },
+    {
+      text: "Coterie Management",
+      icon: <FaUserCog size={14} />,
+      onClick: () => handleSidebarItemClick("/manage/coterie"),
+    },
+  ];
+
+  const partnerItems = [
+    {
+      text: "New Partner",
+      icon: <FaHandshake size={14} />,
+      onClick: () => handleSidebarItemClick("/partner/new"),
+    },
+    {
+      text: "Partner",
+      icon: <FaHandshake size={14} />,
+      onClick: () => handleSidebarItemClick("/partner"),
+    },
+  ];
+
+  const blogItems = [
+    {
+      text: "New Blog",
+      icon: <FaBlog size={14} />,
+      onClick: () => handleSidebarItemClick("/blog/new"),
+    },
+    {
+      text: "Blog",
+      icon: <FaBlog size={14} />,
+      onClick: () => handleSidebarItemClick("/blog"),
+    },
+  ];
+
   return (
     <>
       <div className="z-[3] fixed top-0 h-[80px] flex items-center w-full hidden lg:flex">
@@ -91,10 +141,10 @@ const Navbar: React.FC<NavbarProps> = ({
 
         <div
           style={{
-            height: "calc(112vh - 210px)",
+            height: "calc(100vh - 180px)",
             background: "rgb(255, 255, 255, 0.0)",
           }}
-          className="w-full rounded-lg border-2 border-blue-800"
+          className="w-full rounded-lg border-2 border-blue-800 p-2 overflow-y-auto"
         >
           <SidebarItem
             onClick={() => handleSidebarItemClick("/")}
@@ -103,40 +153,20 @@ const Navbar: React.FC<NavbarProps> = ({
           />
           {isLoggedIn && (
             <>
-              <SidebarItem
-                onClick={() => handleSidebarItemClick("/manage/user")}
-                text={"User Management"}
-                icon={<FaUserCog />}
+              <DropdownMenu
+                text="Management"
+                icon={<FaUserCog size={18} />}
+                items={managementItems}
               />
-              <SidebarItem
-                onClick={() => handleSidebarItemClick("/blog/new")}
-                text={"New Blog"}
-                icon={<FaBlog />}
+              <DropdownMenu
+                text="Partner"
+                icon={<FaHandshake size={18} />}
+                items={partnerItems}
               />
-              <SidebarItem
-                onClick={() => handleSidebarItemClick("/partner/new")}
-                text={"New Partner"}
-                icon={<FaHandshake />}
-              />
-              <SidebarItem
-                onClick={() => handleSidebarItemClick("/partner")}
-                text={"Partner"}
-                icon={<FaHandshake />}
-              />
-              <SidebarItem
-                onClick={() => handleSidebarItemClick("/manage/post")}
-                text={"Post Management"}
-                icon={<FaUserCog />}
-              />
-              <SidebarItem
-                onClick={() => handleSidebarItemClick("/manage/badge")}
-                text={"Badge Management"}
-                icon={<FaUserCog />}
-              />
-              <SidebarItem
-                onClick={() => handleSidebarItemClick("/manage/coterie")}
-                text={"Coterie Management"}
-                icon={<FaUserCog />}
+              <DropdownMenu
+                text="Blog"
+                icon={<FaBlog size={18} />}
+                items={blogItems}
               />
               <SidebarItem
                 onClick={() =>
@@ -145,12 +175,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 text={"Status"}
                 icon={<FaCogs />}
               />
-              <SidebarItem
-                onClick={() => handleSidebarItemClick("/analytics")}
-                text={"Analytics"}
-                icon={<SiSimpleanalytics />}
-              />
-              <div style={{ height: "10px" }} />
+              <div style={{ height: "250px" }} />
               <SidebarItem
                 onClick={() =>
                   handleSidebarItemClick(
@@ -211,3 +236,4 @@ const Navbar: React.FC<NavbarProps> = ({
 };
 
 export default Navbar;
+

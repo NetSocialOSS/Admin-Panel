@@ -9,8 +9,9 @@ interface Props {
 
 const BadgeManagement: React.FC<Props> = ({ userId }) => {
   const [username, setUsername] = useState("");
-  const [profilePicture, setProfilePicture] = useState<string | null>(null); // State for profile picture
+  const [profilePicture, setProfilePicture] = useState<string | null>(null);
   const [selectedAction, setSelectedAction] = useState("add");
+  const [entityType, setentityType] = useState("user");
   const [availableBadges, setAvailableBadges] = useState([
     { name: "Developer", icon: FaCode, value: "dev" },
     { name: "Owner", icon: FaCrown, value: "owner" },
@@ -18,19 +19,37 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
     { name: "Moderator", icon: FaUserShield, value: "moderator" },
     { name: "Verified", icon: MdVerified, value: "verified" },
   ]);
-  const [appliedBadges, setAppliedBadges] = useState([]); // Initialize state for user_id
+  const [appliedBadges, setAppliedBadges] = useState([]);
 
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-  // Function to fetch profile information and set profile picture
+  useEffect(() => {
+    if (entityType === "coterie") {
+      setAvailableBadges([
+        { name: "Organization", icon: FaHandshake, value: "organisation" },
+        { name: "Verified", icon: MdVerified, value: "verified" },
+      ]);
+    } else {
+      setAvailableBadges([
+        { name: "Developer", icon: FaCode, value: "dev" },
+        { name: "Owner", icon: FaCrown, value: "owner" },
+        { name: "Partner", icon: FaHandshake, value: "partner" },
+        { name: "Moderator", icon: FaUserShield, value: "moderator" },
+        { name: "Verified", icon: MdVerified, value: "verified" },
+      ]);
+    }
+    setAppliedBadges([]);
+  }, [entityType]);
+
+  // Fetch profile picture for User role
   const fetchProfilePicture = async (username: string) => {
-    if (!username) return;
+    if (!username || entityType !== "user") return;
 
     try {
       const response = await fetch(`${baseURL}/user/${username}?action=info`);
       const data = await response.json();
       if (response.ok && data.profilePicture) {
-        setProfilePicture(data.profilePicture); // Set the profile picture URL
+        setProfilePicture(data.profilePicture);
       } else {
         toast.error("Failed to fetch profile picture.");
       }
@@ -40,8 +59,12 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
   };
 
   useEffect(() => {
-    fetchProfilePicture(username); // Fetch the profile picture whenever username changes
-  }, [username]);
+    if (entityType === "user") {
+      fetchProfilePicture(username);
+    } else {
+      setProfilePicture(null);
+    }
+  }, [username, entityType]);
 
   const handleBadgeApply = (badge) => {
     if (!appliedBadges.some((b) => b.value === badge.value)) {
@@ -71,19 +94,28 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
           "X-action": selectedAction,
           "X-modid": userId,
           "X-badge": badge.value,
+          "X-entity": entityType,
         },
       });
 
       if (response.ok) {
-        toast.success(`${badge.name} badge ${selectedAction}ed successfully.`);
+        // Custom success toast message
+        toast.success(`The ${badge.name} badge has been ${selectedAction}ed successfully to the ${entityType}.`, { 
+          icon: "😊",
+          style: {
+            borderRadius: "5px",
+            background: "var(--primary-color)", // Make sure this CSS variable exists
+            color: "#ffffff",
+          },
+        });
       } else {
-        toast.error(`Failed to ${selectedAction} ${badge.name} badge.`);
+        toast.error(`Failed to ${selectedAction} the ${badge.name} badge.`);
         success = false;
       }
     }
 
     if (success) {
-      setAppliedBadges([]);
+      setAppliedBadges([]); // Reset applied badges on success
     }
   };
 
@@ -91,30 +123,23 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
     <div className="p-5">
       <h1 className="text-2xl font-bold mb-6">Badge Management</h1>
       <div className="p-6 rounded-lg shadow-md">
+        {/* Role Type Dropdown */}
         <div className="mb-6">
-          <label htmlFor="username" className="block font-medium mb-2">
-            User Name
+          <label htmlFor="entityType" className="block font-medium mb-2">
+            Entity Type
           </label>
-          <div className="relative border border-blue-800 rounded">
-            {profilePicture && username && (
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <img
-                  src={profilePicture}
-                  alt="User"
-                  className="w-10 h-10 rounded-full"
-                />
-              </div>
-            )}
-            <input
-              type="text"
-              id="username"
-              placeholder="Enter the username..."
-              className={`w-full px-4 py-2 border text-white border-gray-300 bg-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${username ? "pl-14" : "pl-4"}`}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
+          <select
+            id="entityType"
+            className="w-full px-4 py-2 border border-blue-800 text-white bg-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={entityType}
+            onChange={(e) => setentityType(e.target.value)}
+          >
+            <option value="user">User</option>
+            <option value="coterie">Coterie</option>
+          </select>
         </div>
+
+        {/* Add/Remove Dropdown */}
         <div className="mb-6">
           <label htmlFor="action" className="block font-medium mb-2">
             Select Action
@@ -129,6 +154,34 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
             <option value="remove">Remove</option>
           </select>
         </div>
+
+        {/* Username or Coterie Name */}
+        <div className="mb-6">
+          <label htmlFor="username" className="block font-medium mb-2">
+            {entityType === "user" ? "User Name" : "Coterie Name"}
+          </label>
+          <div className="relative border border-blue-800 rounded">
+            {profilePicture && entityType === "user" && (
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <img
+                  src={profilePicture}
+                  alt="User"
+                  className="w-10 h-10 rounded-full"
+                />
+              </div>
+            )}
+            <input
+              type="text"
+              id="username"
+              placeholder={`Enter the ${entityType.toLowerCase()} name...`}
+              className={`w-full px-4 py-2 border text-white border-gray-300 bg-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${profilePicture && entityType === "user" ? "pl-14" : "pl-4"}`}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* Available Badges */}
         <div className="mb-6">
           <label htmlFor="badges" className="block font-medium mb-2">
             Available Badges
@@ -148,6 +201,8 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
             ))}
           </div>
         </div>
+
+        {/* Applied Badges */}
         <div>
           <label htmlFor="applied-badges" className="block font-medium mb-2">
             Applied Badges
@@ -172,6 +227,8 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
             ))}
           </div>
         </div>
+
+        {/* Submit Button */}
         <div className="mt-6">
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
