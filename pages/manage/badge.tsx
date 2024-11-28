@@ -100,14 +100,17 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
 
       if (response.ok) {
         // Custom success toast message
-        toast.success(`The ${badge.name} badge has been ${selectedAction}ed successfully to the ${entityType}.`, { 
-          icon: "😊",
-          style: {
-            borderRadius: "5px",
-            background: "var(--primary-color)", // Make sure this CSS variable exists
-            color: "#ffffff",
+        toast.success(
+          `The ${badge.name} badge has been ${selectedAction}ed successfully to the ${entityType}.`,
+          {
+            icon: "😊",
+            style: {
+              borderRadius: "5px",
+              background: "var(--primary-color)", // Make sure this CSS variable exists
+              color: "#ffffff",
+            },
           },
-        });
+        );
       } else {
         toast.error(`Failed to ${selectedAction} the ${badge.name} badge.`);
         success = false;

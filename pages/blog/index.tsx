@@ -1,4 +1,4 @@
-import BlogCard from "../../components/layout/cards/blogs"
+import BlogCard from "../../components/layout/cards/blogs";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 
@@ -52,28 +52,26 @@ export default function Partners() {
           </div>
         </div>
         {loading
-                ? Array.from({ length: 6 }).map((_, index) => (
-                    <div
-                      key={index}
-                      className="bg-black shadow rounded-lg p-6 animate-pulse"
-                    >
-                      <div className="h-48 bg-gray-300 rounded-lg mb-4"></div>
-                      <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-                      <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                    </div>
-                  ))
-                : posts.map(
-                    ({ slug, date, title, authorname, authoravatar }) => (
-                      <BlogCard
-                        key={uuidv4()}
-                        slug={slug}
-                        date={date}
-                        title={title}
-                        authorname={authorname}
-                        authoravatar={authoravatar}
-                      />
-                    ),
-                  )}
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="bg-black shadow rounded-lg p-6 animate-pulse"
+              >
+                <div className="h-48 bg-gray-300 rounded-lg mb-4"></div>
+                <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
+                <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+              </div>
+            ))
+          : posts.map(({ slug, date, title, authorname, authoravatar }) => (
+              <BlogCard
+                key={uuidv4()}
+                slug={slug}
+                date={date}
+                title={title}
+                authorname={authorname}
+                authoravatar={authoravatar}
+              />
+            ))}
       </div>
     </>
   );

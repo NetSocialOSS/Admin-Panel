@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FaChevronDown } from 'react-icons/fa';
+import React, { useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
 interface DropdownItem {
   text: string;
