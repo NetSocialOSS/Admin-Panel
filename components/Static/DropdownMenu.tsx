@@ -17,6 +17,11 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ text, icon, items }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hover, setHover] = useState(false);
 
+  const handleItemClick = (onClick: () => void) => {
+    onClick();
+    setIsOpen(false);
+  };
+
   return (
     <div className="relative mb-2">
       <button
@@ -45,8 +50,8 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ text, icon, items }) => {
           {items.map((item, index) => (
             <button
               key={index}
-              onClick={item.onClick}
-              className="w-full text-blue-600 font-semibold text-left text-lg rounded-lg p-3 flex items-center"
+              onClick={() => handleItemClick(item.onClick)}
+              className="w-full text-blue-600 font-semibold text-left text-lg rounded-lg p-3 flex items-center hover:bg-blue-800/20 transition-colors duration-200"
             >
               <div
                 className="mr-2 rounded-lg p-2 text-blue-600"
@@ -64,3 +69,4 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ text, icon, items }) => {
 };
 
 export default DropdownMenu;
+

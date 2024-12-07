@@ -136,7 +136,7 @@ const Navbar: React.FC<NavbarProps> = ({
             alt="NetSocial Logo"
             className="rounded-lg"
           />
-          <p className="text-3xl font-bold text-white ml-3">NetSocial</p>
+          <p className="text-3xl font-bold text-white ml-3">Net Social</p>
         </div>
 
         <div

@@ -87,7 +87,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <NextNProgress options={{ showSpinner: false }} />
       <Head>
-        <title>NetSocial - Administrative Panel</title>
+        <title>Net Social - Administrative Panel</title>
         <link
           rel="icon"
           href="https://cdn.netsocial.app/images/png/netsocial-transparent.png"
