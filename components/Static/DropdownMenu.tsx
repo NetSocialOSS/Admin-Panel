@@ -69,4 +69,3 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ text, icon, items }) => {
 };
 
 export default DropdownMenu;
-

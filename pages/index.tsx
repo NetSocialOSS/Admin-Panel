@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { FaCheckCircle, FaHandshake, FaUsers } from "react-icons/fa";
@@ -29,7 +29,6 @@ const Announcement = ({ title, content }) => (
     </div>
   </div>
 );
-
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -71,8 +70,10 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="flex flex-col w-full min-h-screen text-white p-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">Dashboard Overview</h1>
-            
+      <h1 className="text-4xl font-bold mb-8 text-center">
+        Dashboard Overview
+      </h1>
+
       <div className="flex flex-wrap justify-center items-center">
         <h2 className="text-3xl font-bold text-center">Stats</h2>
         <StatCard
@@ -80,16 +81,8 @@ const Dashboard: React.FC = () => {
           label="Partners"
           count={partnersCount}
         />
-        <StatCard 
-          icon={<FaCheckCircle />} 
-          label="Posts" 
-          count={postsCount} 
-        />
-        <StatCard 
-          icon={<FaUsers />} 
-          label="Users" 
-          count={usersCount} 
-        />
+        <StatCard icon={<FaCheckCircle />} label="Posts" count={postsCount} />
+        <StatCard icon={<FaUsers />} label="Users" count={usersCount} />
         <StatCard
           icon={<AiOutlineUsergroupAdd />}
           label="Coteries"
@@ -98,25 +91,21 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="w-full flex items-center flex-col px-4 py-2 mt-4">
-          <div className="w-full overflow-hidden rounded-lg bg-blue-800/10">
-            <p className="py-4 px-4 bg-blue-800/10 font-semibold text-lg text-center">
-              Today&apos;s announcements
-            </p>
-            <div className="h-[200px] py-2 overflow-auto">
-              <Announcement
-                title="Partners Update"
-                content="All the partner will be managed from the Admin Panel."
-              />
-              <Announcement
-                title="First Announcement"
-                content="Test"
-              />
-            </div>
+        <div className="w-full overflow-hidden rounded-lg bg-blue-800/10">
+          <p className="py-4 px-4 bg-blue-800/10 font-semibold text-lg text-center">
+            Today&apos;s announcements
+          </p>
+          <div className="h-[200px] py-2 overflow-auto">
+            <Announcement
+              title="Partners Update"
+              content="All the partner will be managed from the Admin Panel."
+            />
+            <Announcement title="First Announcement" content="Test" />
           </div>
         </div>
+      </div>
     </div>
   );
 };
 
 export default Dashboard;
-

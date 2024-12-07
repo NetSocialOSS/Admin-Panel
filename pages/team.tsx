@@ -73,7 +73,9 @@ const Team: React.FC = () => {
           </div>
           <div className="ml-4 flex-grow">
             <p className="font-bold text-3xl text-white">{profile.username}</p>
-            <p className="font-semibold text-lg text-white/70">{profile.shortBio}</p>
+            <p className="font-semibold text-lg text-white/70">
+              {profile.shortBio}
+            </p>
           </div>
           <motion.button
             className="absolute top-2 right-2 text-white bg-blue-500 p-2 rounded-full"
