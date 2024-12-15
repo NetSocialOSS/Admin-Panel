@@ -58,30 +58,15 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
     }
   };
 
-  useEffect(() => {
-    if (entityType === "user") {
-      fetchProfilePicture(username);
-    } else {
-      setProfilePicture(null);
-    }
-  }, [username, entityType]);
-
-  const handleBadgeApply = (badge) => {
-    if (!appliedBadges.some((b) => b.value === badge.value)) {
-      setAppliedBadges([...appliedBadges, badge]);
-    } else {
-      console.log(`Badge ${badge.name} is already applied.`);
-    }
-  };
-
-  const handleBadgeRemove = (badge) => {
-    setAppliedBadges(appliedBadges.filter((b) => b.value !== badge.value));
-  };
-
+  // Fetch profile picture only on submit
   const handleSubmit = async () => {
     if (!userId) {
       toast.error("User ID is not available.");
       return;
+    }
+
+    if (entityType === "user" && username) {
+      await fetchProfilePicture(username);  // Fetch only when submit is clicked
     }
 
     let success = true;
@@ -120,6 +105,18 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
     if (success) {
       setAppliedBadges([]); // Reset applied badges on success
     }
+  };
+
+  const handleBadgeApply = (badge) => {
+    if (!appliedBadges.some((b) => b.value === badge.value)) {
+      setAppliedBadges([...appliedBadges, badge]);
+    } else {
+      console.log(`Badge ${badge.name} is already applied.`);
+    }
+  };
+
+  const handleBadgeRemove = (badge) => {
+    setAppliedBadges(appliedBadges.filter((b) => b.value !== badge.value));
   };
 
   return (
@@ -228,6 +225,10 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
                 </button>
               </div>
             ))}
+          </div>
+          {/* Display applied badges as comma-separated */}
+          <div className="mt-2">
+            <strong>Applied Badges:</strong> {appliedBadges.map(b => b.name).join(", ")}
           </div>
         </div>
 
