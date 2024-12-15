@@ -66,7 +66,7 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
     }
 
     if (entityType === "user" && username) {
-      await fetchProfilePicture(username);  // Fetch only when submit is clicked
+      await fetchProfilePicture(username); // Fetch only when submit is clicked
     }
 
     let success = true;
@@ -228,7 +228,8 @@ const BadgeManagement: React.FC<Props> = ({ userId }) => {
           </div>
           {/* Display applied badges as comma-separated */}
           <div className="mt-2">
-            <strong>Applied Badges:</strong> {appliedBadges.map(b => b.name).join(", ")}
+            <strong>Applied Badges:</strong>{" "}
+            {appliedBadges.map((b) => b.name).join(", ")}
           </div>
         </div>
 
